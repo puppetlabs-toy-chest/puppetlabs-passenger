@@ -15,12 +15,19 @@
 #
 # Sample Usage:
 #
-class passenger {
-  include passenger::params
-  require ruby::dev
-  require gcc
-  require apache::dev
-  $version=$passenger::params::version
+class passenger (
+  $passenger_version      = $passenger::params::passenger_version,
+  $gem_path               = $passenger::params::gem_path,
+  $gem_binary_path        = $passenger::params::gem_binary_path,
+  $mod_passenger_location = $passenger::params::mod_passenger_location,
+  $passenger_provider     = $passenger::params::passenger_provider,
+  $passenger_package      = $passenger::params::passenger_package
+) inherits passenger::params {
+
+  class { 'gcc': }
+  class { 'apache': }
+  class { 'apache::dev': }
+
   case $operatingsystem {
     'ubuntu', 'debian': {
       file { '/etc/apache2/mods-available/passenger.load':
@@ -68,16 +75,22 @@ class passenger {
   }
 
   package {'passenger':
-    name   => 'passenger',
-    ensure => $version,
-    provider => 'gem',
+    name     => $passenger_package,
+    ensure   => $passenger_version,
+    provider => $passenger_provider,
   }
 
   exec {'compile-passenger':
-    path => [ $passenger::params::gem_binary_path, '/usr/bin', '/bin'],
-    command => 'passenger-install-apache2-module -a',
-    logoutput => true,
-    creates => $passenger::params::mod_passenger_location,
-    require => Package['passenger'],
+    path      => [ $gem_binary_path, '/usr/bin', '/bin'],
+    command   => 'passenger-install-apache2-module -a',
+    logoutput => on_failure,
+    creates   => $mod_passenger_location,
+    require   => Package['passenger'],
   }
+
+  Class ['gcc']
+  -> Class['apache::dev']
+  -> Package <| title == 'rubygems' |>
+  -> Package['passenger']
+  -> Exec['compile-passenger']
 }
