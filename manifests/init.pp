@@ -1,15 +1,21 @@
 # Class: passenger
 #
-# This class installs passenger
+# This class installs Passenger (mod_rails) on your system.
+# http://www.modrails.com
 #
 # Parameters:
+#   [*passenger_version*]       - The Version of Passenger to be installed
+#   [*gem_path*]                - Rubygems path on your system
+#   [*gem_binary_path*]         - Path to Rubygems binaries on your system
+#   [*mod_passenger_location*]  - Path to Passenger's mod_passenger.so file
+#   [*passenger_provider*]      - The package provider to install Passenger
+#   [*passenger_package*]       - The name of the Passenger package
 #
 # Actions:
 #   - Install passenger gem
 #   - Compile passenger module
 #
 # Requires:
-#   - ruby::dev
 #   - gcc
 #   - apache::dev
 #
