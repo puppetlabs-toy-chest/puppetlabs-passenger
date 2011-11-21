@@ -40,6 +40,11 @@ class passenger {
   case $operatingsystem {
     'ubuntu', 'debian': {
       include passenger::config::debian
+
+      package {'libcurl4-gnutls-dev':
+        ensure => present,
+        before => Package['passenger']
+      }
     }
     # More cases as needed
   }

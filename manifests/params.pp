@@ -11,7 +11,7 @@
 # Sample Usage:
 #
 class passenger::params {
-  $version='2.2.11'
+  $version='3.0.9'
   
   case $operatingsystem {
     'ubuntu', 'debian': {
