@@ -19,6 +19,7 @@ class passenger {
   include passenger::params
   require ruby::dev
   require gcc
+  require apache::ssl
   require apache::dev
   $version=$passenger::params::version
 
@@ -35,4 +36,18 @@ class passenger {
     creates => $passenger::params::mod_passenger_location,
     require => Package['passenger'],
   }
+
+  case $operatingsystem {
+    'ubuntu', 'debian': {
+      include passenger::config::debian
+
+      package {'libcurl4-gnutls-dev':
+        ensure => present,
+        before => Package['passenger']
+      }
+    }
+    # More cases as needed
+  }
+
+
 }

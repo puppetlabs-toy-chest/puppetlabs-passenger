@@ -1,0 +1,8 @@
+# MANAGED BY PUPPET
+
+LoadModule passenger_module <%= scope.lookupvar('passenger::params::mod_passenger_location') %>
+PassengerRoot <%= scope.lookupvar('passenger::params::gem_path') -%>passenger-<%= scope.lookupvar('passenger::params::version') %>
+PassengerRuby /usr/bin/ruby1.8
+<IfModule passenger_module>
+    Listen 8140
+</IfModule>
