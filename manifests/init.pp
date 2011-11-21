@@ -36,4 +36,13 @@ class passenger {
     creates => $passenger::params::mod_passenger_location,
     require => Package['passenger'],
   }
+
+  case $operatingsystem {
+    'ubuntu', 'debian': {
+      include passenger::config::debian
+    }
+    # More cases as needed
+  }
+
+
 }
