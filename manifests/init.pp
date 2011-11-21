@@ -19,6 +19,7 @@ class passenger {
   include passenger::params
   require ruby::dev
   require gcc
+  require apache::ssl
   require apache::dev
   $version=$passenger::params::version
 
