@@ -15,13 +15,13 @@ class passenger::params {
   $passenger_provider = 'gem'
 
   case $operatingsystem {
-    'debian': {
+    'debian', 'ubuntu': {
       $passenger_package      = 'passenger'
       $gem_path               = '/var/lib/gems/1.8/gems'
       $gem_binary_path        = '/var/lib/gems/1.8/bin'
       $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-$passenger_version/ext/apache2/mod_passenger.so"
     }
-    'centos', 'fedora', 'redhat', 'ubuntu': {
+    'centos', 'fedora', 'redhat': {
       $passenger_package      = 'passenger'
       $gem_path               = '/usr/lib/ruby/gems/1.8/gems'
       $gem_binary_path        = '/usr/lib/ruby/gems/1.8/gems/bin'
