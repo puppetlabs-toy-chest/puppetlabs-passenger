@@ -1,5 +1,5 @@
 name 'puppetlabs-passenger'
-version '0.0.2'
+version '0.0.3'
 dependency 'puppetlabs-apache', '0.0.3'
 dependency 'puppetlabs-gcc', '0.0.1'
 dependency 'puppetlabs-ruby', '0.0.1'
