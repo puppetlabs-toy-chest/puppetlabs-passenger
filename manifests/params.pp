@@ -11,7 +11,7 @@
 # Sample Usage:
 #
 class passenger::params {
-  $passenger_version  = '2.2.11'
+  $passenger_version  = '3.0.9'
   $passenger_provider = 'gem'
 
   case $operatingsystem {
