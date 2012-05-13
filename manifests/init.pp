@@ -92,6 +92,11 @@ class passenger (
       }
     }
     'redhat': {
+      package { 'libcurl-devel':
+        ensure => present,
+        before => Exec['compile-passenger'],
+      }
+
       file { '/etc/httpd/conf.d/passenger.conf':
         ensure  => present,
         content => template('passenger/passenger-conf.erb'),
