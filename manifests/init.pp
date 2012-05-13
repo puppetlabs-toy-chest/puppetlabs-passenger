@@ -30,9 +30,7 @@ class passenger (
   $passenger_package      = $passenger::params::passenger_package
 ) inherits passenger::params {
 
-  class { 'gcc': }
-  class { 'apache': }
-  class { 'apache::dev': }
+  require gcc, apache, apache::dev
 
   case $operatingsystem {
     'ubuntu', 'debian': {
