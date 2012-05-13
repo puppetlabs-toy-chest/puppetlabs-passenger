@@ -74,6 +74,7 @@ class passenger (
 
       file { '/etc/apache2/mods-enabled/passenger.load':
         ensure  => 'link',
+        target  => '/etc/apache2/mods-available/passenger.load',
         owner   => '0',
         group   => '0',
         mode    => '0777',
@@ -82,6 +83,7 @@ class passenger (
 
       file { '/etc/apache2/mods-enabled/passenger.conf':
         ensure  => 'link',
+        target  => '/etc/apache2/mods-available/passenger.conf',
         owner   => '0',
         group   => '0',
         mode    => '0777',
