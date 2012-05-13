@@ -4,22 +4,40 @@
 # http://www.modrails.com
 #
 # Parameters:
-#   [*passenger_version*]       - The Version of Passenger to be installed
-#   [*gem_path*]                - Rubygems path on your system
-#   [*gem_binary_path*]         - Path to Rubygems binaries on your system
-#   [*mod_passenger_location*]  - Path to Passenger's mod_passenger.so file
-#   [*passenger_provider*]      - The package provider to install Passenger
-#   [*passenger_package*]       - The name of the Passenger package
+#   [*passenger_version*]
+#     The Version of Passenger to be installed
 #
-# Actions:
-#   - Install passenger gem
-#   - Compile passenger module
+#   [*gem_path*]
+#     The path to rubygems on your system
+#
+#   [*gem_binary_path*]
+#     Path to Rubygems binaries on your system
+#
+#   [*mod_passenger_location*]
+#     Path to Passenger's mod_passenger.so file
+#
+#   [*passenger_provider*]
+#     The package provider to use for the system
+#
+#   [*passenger_package*]
+#     The name of the Passenger package
+#
+# Usage:
+#
+#  class { 'passenger':
+#    passenger_version      => '3.0.9',
+#    gem_path               => '/var/lib/gems/1.8/gems',
+#    gem_binary_path        => '/var/lib/gems/1.8/bin',
+#    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.9/ext/apache2/mod_passenger.so',
+#    passenger_provider     => 'gem',
+#    passenger_package      => 'passenger',
+#  }
+#
 #
 # Requires:
 #   - gcc
+#   - apache
 #   - apache::dev
-#
-# Sample Usage:
 #
 class passenger (
   $passenger_version      = $passenger::params::passenger_version,
