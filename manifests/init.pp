@@ -52,6 +52,10 @@ class passenger (
 
   case $osfamily {
     'debian': {
+      package { ['libopenssl-ruby', 'libcurl4-openssl-dev']:
+        ensure => present,
+      }
+
       file { '/etc/apache2/mods-available/passenger.load':
         ensure  => present,
         content => template('passenger/passenger-load.erb'),
