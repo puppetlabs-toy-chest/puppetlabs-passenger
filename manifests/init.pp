@@ -35,7 +35,6 @@
 #
 #
 # Requires:
-#   - gcc
 #   - apache
 #   - apache::dev
 #
@@ -48,12 +47,14 @@ class passenger (
   $passenger_package      = $passenger::params::passenger_package
 ) inherits passenger::params {
 
-  require gcc, apache, apache::dev
+  include apache
+  require apache::dev
 
   case $osfamily {
     'debian': {
       package { ['libopenssl-ruby', 'libcurl4-openssl-dev']:
         ensure => present,
+        before => Exec['compile-passenger'],
       }
 
       file { '/etc/apache2/mods-available/passenger.load':
@@ -117,10 +118,4 @@ class passenger (
     creates   => $mod_passenger_location,
     require   => Package['passenger'],
   }
-
-  Class ['gcc']
-  -> Class['apache::dev']
-  -> Package <| title == 'rubygems' |>
-  -> Package['passenger']
-  -> Exec['compile-passenger']
 }
