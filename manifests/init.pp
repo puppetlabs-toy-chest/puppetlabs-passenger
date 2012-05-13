@@ -50,8 +50,8 @@ class passenger (
 
   require gcc, apache, apache::dev
 
-  case $operatingsystem {
-    'ubuntu', 'debian': {
+  case $osfamily {
+    'debian': {
       file { '/etc/apache2/mods-available/passenger.load':
         ensure  => present,
         content => template('passenger/passenger-load.erb'),
@@ -84,7 +84,7 @@ class passenger (
         require => File['/etc/apache2/mods-available/passenger.conf'],
       }
     }
-    'centos', 'fedora', 'redhat': {
+    'redhat': {
       file { '/etc/httpd/conf.d/passenger.conf':
         ensure  => present,
         content => template('passenger/passenger-conf.erb'),
@@ -93,7 +93,9 @@ class passenger (
         mode    => '0644',
       }
     }
-    'darwin':{}
+    default:{
+      fail("Operating system ${::operatingsystem} is not supported with the Passenger module")
+    }
   }
 
   package {'passenger':
