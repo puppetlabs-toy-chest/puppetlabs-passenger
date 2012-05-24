@@ -52,7 +52,7 @@ class passenger (
 
   case $osfamily {
     'debian': {
-      package { ['libopenssl-ruby', 'libcurl4-openssl-dev']:
+      package { [$passenger::params::libruby, 'libcurl4-openssl-dev']:
         ensure => present,
         before => Exec['compile-passenger'],
       }
@@ -117,7 +117,7 @@ class passenger (
   }
 
   exec {'compile-passenger':
-    path      => [ $gem_binary_path, '/usr/bin', '/bin'],
+    path      => [ $gem_binary_path, '/usr/bin', '/bin', '/usr/local/bin' ],
     command   => 'passenger-install-apache2-module -a',
     logoutput => on_failure,
     creates   => $mod_passenger_location,
