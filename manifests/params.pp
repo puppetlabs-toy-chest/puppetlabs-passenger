@@ -20,6 +20,13 @@ class passenger::params {
       $gem_path               = '/var/lib/gems/1.8/gems'
       $gem_binary_path        = '/var/lib/gems/1.8/bin'
       $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-$passenger_version/ext/apache2/mod_passenger.so"
+
+      # Ubuntu does not have libopenssl-ruby - it's packaged in libruby
+      if $lsbdistid == 'Ubuntu' {
+        $libruby              = 'libruby'
+      } else {
+        $libruby              = 'libopenssl-ruby'
+      }
     }
     'redhat': {
       $passenger_package      = 'passenger'
