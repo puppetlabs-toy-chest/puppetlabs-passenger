@@ -50,7 +50,7 @@ class passenger (
   include apache
   require apache::mod::dev
 
-  case $osfamily {
+  case $::osfamily {
     'debian': {
       package { [$passenger::params::libruby, 'libcurl4-openssl-dev']:
         ensure => present,

@@ -14,7 +14,7 @@ class passenger::params {
   $passenger_version  = '3.0.9'
   $passenger_provider = 'gem'
 
-  case $osfamily {
+  case $::osfamily {
     'debian': {
       $passenger_package      = 'passenger'
       $gem_path               = '/var/lib/gems/1.8/gems'
@@ -22,7 +22,7 @@ class passenger::params {
       $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-$passenger_version/ext/apache2/mod_passenger.so"
 
       # Ubuntu does not have libopenssl-ruby - it's packaged in libruby
-      if $lsbdistid == 'Ubuntu' {
+      if $::lsbdistid == 'Ubuntu' {
         $libruby              = 'libruby'
       } else {
         $libruby              = 'libopenssl-ruby'
