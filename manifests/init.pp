@@ -79,7 +79,7 @@ class passenger (
         owner   => '0',
         group   => '0',
         mode    => '0777',
-        require => File['/etc/apache2/mods-available/passenger.load'],
+        require => [ File['/etc/apache2/mods-available/passenger.load'], Exec['compile-passenger'], ],
       }
 
       file { '/etc/apache2/mods-enabled/passenger.conf':
