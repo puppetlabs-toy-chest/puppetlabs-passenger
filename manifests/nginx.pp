@@ -24,50 +24,13 @@ class passenger::nginx (
         before => Exec['compile-passenger'],
       }
       file_line { 'init.d daemon':
-        path   => '/etc/default/nginx',
-        line   => 'DAEMON=/usr/local/nginx/sbin/nginx',
-        match  => '^DAEMON=',
-        before => Service['nginx'],
+        path    => '/etc/default/nginx',
+        line    => 'DAEMON=/usr/local/nginx/sbin/nginx',
+        require => Package['nginx'],
+        notify  => Service['nginx'],
       }
       $compile_env = 'CC=gcc-4.4'
 
-      #file { '/etc/apache2/mods-available/passenger.load':
-      #ensure  => present,
-      #content => template('passenger/passenger-load.erb'),
-      #owner   => '0',
-      #group   => '0',
-      #mode    => '0644',
-      #notify  => Service['httpd'],
-      #}
-
-      #file { '/etc/apache2/mods-available/passenger.conf':
-      #ensure  => present,
-      #content => template('passenger/passenger-enabled.erb'),
-      #owner   => '0',
-      #group   => '0',
-      #mode    => '0644',
-      #notify  => Service['httpd'],
-      #}
-
-      #file { '/etc/apache2/mods-enabled/passenger.load':
-      #ensure  => 'link',
-      #target  => '/etc/apache2/mods-available/passenger.load',
-      #owner   => '0',
-      #group   => '0',
-      #mode    => '0777',
-      #require => [ File['/etc/apache2/mods-available/passenger.load'], Exec['compile-passenger'], ],
-      #notify  => Service['httpd'],
-      #}
-
-      #file { '/etc/apache2/mods-enabled/passenger.conf':
-        #ensure  => 'link',
-        #target  => '/etc/apache2/mods-available/passenger.conf',
-        #owner   => '0',
-        #group   => '0',
-        #mode    => '0777',
-        #require => File['/etc/apache2/mods-available/passenger.conf'],
-        #notify  => Service['httpd'],
-      #}
     }
     'redhat': {
       package { 'libcurl-devel':
@@ -90,12 +53,41 @@ class passenger::nginx (
     }
   }
 
-  exec {'compile-passenger':
+  exec { 'compile-passenger':
     path      => [ $passenger::gem_binary_path, '/usr/bin', '/bin', '/usr/local/bin' ],
     provider  => 'shell',
     command   => "$compile_env passenger-install-nginx-module --auto --auto-download --prefix=/usr/local/nginx",
     logoutput => on_failure,
     creates   => '/usr/local/nginx/sbin/nginx',
     require   => Package['passenger'],
+  }
+  file { '/etc/nginx':
+    ensure  => link,
+    target  => '/usr/local/nginx/conf',
+    force   => true,
+    require => Exec['compile-passenger'],
+    notify  => Service['nginx'],
+  }
+  file { '/usr/local/nginx/conf/http.d':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    require => Exec['compile-passenger'],
+  }
+  exec { 'nginx-passenger.conf':
+    creates  => '/usr/local/nginx/conf/http.d/00-passenger.conf',
+    provider => 'shell',
+    command  => 'echo "passenger_root \"$(passenger-config --root)\";" > /usr/local/nginx/conf/http.d/00-passenger.conf',
+    require  => File['/usr/local/nginx/conf/http.d'],
+    notify   => Service['nginx'],
+  }
+  file { '/usr/local/nginx/conf/nginx.conf':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    source  => 'puppet:///modules/passenger/nginx.conf',
+    require => Exec['compile-passenger'],
+    notify  => Service['nginx'],
   }
 }
