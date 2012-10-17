@@ -12,6 +12,7 @@
 #
 class passenger::params {
   $passenger_version  = '3.0.9'
+  $passenger_ruby     = '/usr/bin/ruby'
   $passenger_provider = 'gem'
 
   case $osfamily {
