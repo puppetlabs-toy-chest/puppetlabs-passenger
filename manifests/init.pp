@@ -26,6 +26,7 @@
 #
 #  class { 'passenger':
 #    passenger_version      => '3.0.9',
+#    passenger_ruby         => '/usr/bin/ruby'
 #    gem_path               => '/var/lib/gems/1.8/gems',
 #    gem_binary_path        => '/var/lib/gems/1.8/bin',
 #    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.9/ext/apache2/mod_passenger.so',
@@ -40,6 +41,7 @@
 #
 class passenger (
   $passenger_version      = $passenger::params::passenger_version,
+  $passenger_ruby         = $passenger::params::passenger_ruby,
   $gem_path               = $passenger::params::gem_path,
   $gem_binary_path        = $passenger::params::gem_binary_path,
   $mod_passenger_location = $passenger::params::mod_passenger_location,
