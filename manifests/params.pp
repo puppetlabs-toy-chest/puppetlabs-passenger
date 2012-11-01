@@ -25,6 +25,8 @@ class passenger::params {
       # Ubuntu does not have libopenssl-ruby - it's packaged in libruby
       if $::lsbdistid == 'Ubuntu' {
         $libruby              = 'libruby'
+      } elsif $::lsbdistcodename == 'squeeze' {
+        $libruby              = 'libruby'
       } else {
         $libruby              = 'libopenssl-ruby'
       }
