@@ -22,8 +22,15 @@ The Passenger module will attempt to apply sane default values to all its parame
         gem_path               => '/var/lib/gems/1.8/gems',
         gem_binary_path        => '/var/lib/gems/1.8/bin',
         mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-2.2.11/ext/apache2/mod_passenger.so',
+        passenger_config       => {
+          'RailsAutoDetect'     => 'on',
+          'PassengerMaxPoolSize => '40',
+        },
       }
     }
+
+Using the `passenger_config` parameter, you can specify any passenger directive
+that can be globally configured.
 
 # Dependencies
 

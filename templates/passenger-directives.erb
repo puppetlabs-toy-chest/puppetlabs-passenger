@@ -1,0 +1,8 @@
+PassengerRoot <%= gem_path %>/passenger-<%= passenger_version %>
+PassengerRuby <%= passenger_ruby %>
+<% unless passenger_config.empty? -%>
+
+<% passenger_config.each do |directive, value| -%>
+<%= directive %> <%= value %>
+<% end -%>
+<% end -%>

@@ -22,6 +22,8 @@
 #   [*passenger_package*]
 #     The name of the Passenger package
 #
+#   [*passenger_config*]
+#     Hash mapping of passenger directives to their values
 # Usage:
 #
 #  class { 'passenger':
@@ -32,6 +34,10 @@
 #    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.9/ext/apache2/mod_passenger.so',
 #    passenger_provider     => 'gem',
 #    passenger_package      => 'passenger',
+#    passenger_config       => {
+#      'RailsAutoDetect'      => 'on',
+#      'PassengerMinInstances => '2',
+#    }
 #  }
 #
 #
@@ -46,7 +52,8 @@ class passenger (
   $gem_binary_path        = $passenger::params::gem_binary_path,
   $mod_passenger_location = $passenger::params::mod_passenger_location,
   $passenger_provider     = $passenger::params::passenger_provider,
-  $passenger_package      = $passenger::params::passenger_package
+  $passenger_package      = $passenger::params::passenger_package,
+  $passenger_config       = {}
 ) inherits passenger::params {
 
   include apache
@@ -113,8 +120,8 @@ class passenger (
   }
 
   package {'passenger':
-    name     => $passenger_package,
     ensure   => $passenger_version,
+    name     => $passenger_package,
     provider => $passenger_provider,
   }
 
