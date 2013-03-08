@@ -1,11 +1,2 @@
 LoadModule passenger_module <%= gem_path %>/passenger-<%= passenger_version %>/ext/apache2/mod_passenger.so
-PassengerRoot <%= gem_path %>/passenger-<%= passenger_version %>
-PassengerRuby <%= passenger_ruby %>
-
-# you probably want to tune these settings
-PassengerHighPerformance on
-PassengerMaxPoolSize 12
-PassengerPoolIdleTime 1500
-# PassengerMaxRequests 1000
-PassengerStatThrottleRate 120
-RailsAutoDetect On
+<%= scope.function_template(['passenger/passenger-directives.erb']) %>
