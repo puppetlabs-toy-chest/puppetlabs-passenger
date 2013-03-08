@@ -120,8 +120,8 @@ class passenger (
   }
 
   package {'passenger':
-    name     => $passenger_package,
     ensure   => $passenger_version,
+    name     => $passenger_package,
     provider => $passenger_provider,
   }
 
