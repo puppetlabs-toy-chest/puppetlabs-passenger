@@ -1,10 +1,8 @@
 PassengerRoot <%= gem_path %>/passenger-<%= passenger_version %>
 PassengerRuby <%= passenger_ruby %>
+<% unless passenger_config.empty? -%>
 
-# you probably want to tune these settings
-PassengerHighPerformance on
-PassengerMaxPoolSize 12
-PassengerPoolIdleTime 1500
-# PassengerMaxRequests 1000
-PassengerStatThrottleRate 120
-RailsAutoDetect On
+<% passenger_config.each do |directive, value| -%>
+<%= directive %> <%= value %>
+<% end -%>
+<% end -%>
