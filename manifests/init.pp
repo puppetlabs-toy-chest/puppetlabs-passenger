@@ -94,7 +94,8 @@ class passenger (
       }
     }
     'redhat': {
-      package { 'libcurl-devel':
+      package { [ 'ruby-devel', 'gcc', 'make', 'gcc-c++', 'openssl-devel',
+      'zlib-devel', 'libcurl-devel' ]:
         ensure => present,
         before => Exec['compile-passenger'],
       }
