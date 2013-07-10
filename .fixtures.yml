@@ -1,0 +1,7 @@
+fixtures:
+  repositories:
+    apache:
+      repo: 'git://github.com/puppetlabs/puppetlabs-apache.git'
+      ref: '0.4.0'
+  symlinks:
+    passenger: "#{source_dir}"
