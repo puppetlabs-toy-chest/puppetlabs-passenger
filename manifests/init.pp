@@ -65,6 +65,7 @@ class passenger (
         owner   => '0',
         group   => '0',
         mode    => '0644',
+        notify  => Service['httpd'],
       }
 
       file { '/etc/apache2/mods-available/passenger.conf':
@@ -73,6 +74,7 @@ class passenger (
         owner   => '0',
         group   => '0',
         mode    => '0644',
+        notify  => Service['httpd'],
       }
 
       file { '/etc/apache2/mods-enabled/passenger.load':
@@ -81,7 +83,8 @@ class passenger (
         owner   => '0',
         group   => '0',
         mode    => '0777',
-        require => File['/etc/apache2/mods-available/passenger.load'],
+        require => [ File['/etc/apache2/mods-available/passenger.load'], Exec['compile-passenger'], ],
+        notify  => Service['httpd'],
       }
 
       file { '/etc/apache2/mods-enabled/passenger.conf':
@@ -91,6 +94,7 @@ class passenger (
         group   => '0',
         mode    => '0777',
         require => File['/etc/apache2/mods-available/passenger.conf'],
+        notify  => Service['httpd'],
       }
     }
     'redhat': {
