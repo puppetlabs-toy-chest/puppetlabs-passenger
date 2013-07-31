@@ -1,0 +1,19 @@
+* 2013-07-31 0.1.0
+
+Summary:
+
+Several changes over the last year to improve compatibility against
+modern distributions, improvements to make things more robust and
+some fixes for Puppet 3.
+
+Features:
+- Parameters in `passenger` class:
+ - `passenger_ruby`: Allows you to customize what ruby binary is used.
+
+Bugfixes:
+- Ubuntu compatibility fixes.
+- Debian 6+ compatibility fixes.
+- Fixes against newer puppetlabs-apache.
+- Properly qualify variables.
+- Restart apache if passenger configuration changes.
+- Don't try to load unless compilation stage was successful.
