@@ -100,9 +100,18 @@ class passenger (
       }
     }
     'redhat': {
-      package { 'libcurl-devel':
-        ensure => present,
-        before => Exec['compile-passenger'],
+      case $::lsbmajdistrelease {
+        '5': {
+          $curl_package = 'curl-devel'
+        }
+      default: {
+          $curl_package = 'libcurl-devel'
+        }
+      }
+
+      package {  $curl_package:
+         ensure => present,
+         before => Exec['compile-passenger'],
       }
 
       file { '/etc/httpd/conf.d/passenger.conf':
