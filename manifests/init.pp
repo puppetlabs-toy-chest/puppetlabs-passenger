@@ -47,88 +47,35 @@
 #   - apache::dev
 #
 class passenger (
-  $passenger_version      = $passenger::params::passenger_version,
-  $passenger_ruby         = $passenger::params::passenger_ruby,
-  $gem_path               = $passenger::params::gem_path,
   $gem_binary_path        = $passenger::params::gem_binary_path,
-  $passenger_root         = $passenger::params::passenger_root,
+  $gem_path               = $passenger::params::gem_path,
   $mod_passenger_location = $passenger::params::mod_passenger_location,
+  $package_name           = $passenger::params::package_name,
+  $package_ensure         = $passenger::params::package_ensure,
+  $package_provider       = $passenger::params::package_provider,
+  $passenger_package      = $passenger::params::passenger_package,
   $passenger_provider     = $passenger::params::passenger_provider,
-  $passenger_package      = $passenger::params::passenger_package
+  $passenger_root         = $passenger::params::passenger_root,
+  $passenger_ruby         = $passenger::params::passenger_ruby,
+  $passenger_version      = $passenger::params::passenger_version,
 ) inherits passenger::params {
 
-  include apache
-  require apache::dev
+  include '::apache'
+  include '::apache::dev'
 
-  case $::osfamily {
-    'debian': {
-      package { [$passenger::params::libruby, 'libcurl4-openssl-dev']:
-        ensure => present,
-        before => Exec['compile-passenger'],
-      }
+  include '::passenger::install'
+  include '::passenger::config'
+  include '::passenger::compile'
 
-      File {
-        owner   => '0',
-        group   => '0',
-        notify  => Service['httpd'],
-      }
+  anchor { 'passenger::begin': }
+  anchor { 'passenger::end': }
 
-      file { '/etc/apache2/mods-available/passenger.load':
-        ensure  => present,
-        content => template('passenger/passenger-load.erb'),
-        mode    => '0644',
-      }
+  #projects.puppetlabs.com - bug - #8040: Anchoring pattern
+  Anchor['passenger::begin'] ->
+  Class['apache::dev'] ->
+  Class['passenger::install'] ->
+  Class['passenger::compile'] ->
+  Class['passenger::config'] ->
+  Anchor['passenger::end']
 
-      file { '/etc/apache2/mods-available/passenger.conf':
-        ensure  => present,
-        content => template('passenger/passenger-enabled.erb'),
-        mode    => '0644',
-      }
-
-      file { '/etc/apache2/mods-enabled/passenger.load':
-        ensure  => 'link',
-        target  => '/etc/apache2/mods-available/passenger.load',
-        mode    => '0777',
-        require => [ File['/etc/apache2/mods-available/passenger.load'], Exec['compile-passenger'], ],
-      }
-
-      file { '/etc/apache2/mods-enabled/passenger.conf':
-        ensure  => 'link',
-        target  => '/etc/apache2/mods-available/passenger.conf',
-        mode    => '0777',
-        require => File['/etc/apache2/mods-available/passenger.conf'],
-      }
-    }
-    'redhat': {
-      package { 'libcurl-devel':
-        ensure => present,
-        before => Exec['compile-passenger'],
-      }
-
-      file { '/etc/httpd/conf.d/passenger.conf':
-        ensure  => present,
-        content => template('passenger/passenger-conf.erb'),
-        owner   => '0',
-        group   => '0',
-        mode    => '0644',
-      }
-    }
-    default:{
-      fail("Operating system ${::operatingsystem} is not supported with the Passenger module")
-    }
-  }
-
-  package {'passenger':
-    name     => $passenger_package,
-    ensure   => $passenger_version,
-    provider => $passenger_provider,
-  }
-
-  exec {'compile-passenger':
-    path      => [ $gem_binary_path, '/usr/bin', '/bin', '/usr/local/bin' ],
-    command   => 'passenger-install-apache2-module -a',
-    logoutput => on_failure,
-    creates   => $mod_passenger_location,
-    require   => Package['passenger'],
-  }
 }

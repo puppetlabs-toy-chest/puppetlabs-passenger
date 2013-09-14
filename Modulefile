@@ -9,3 +9,4 @@ project_page 'https://github.com/puppetlabs/puppetlabs-passenger'
 
 dependency 'puppetlabs/apache', '>= 0.0.3'
 dependency 'puppetlabs/ruby', '>= 0.0.1'
+dependency 'puppetlabs/stdlib'
