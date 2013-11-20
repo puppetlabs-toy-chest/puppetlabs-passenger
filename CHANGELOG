@@ -1,3 +1,18 @@
+* 2013-11-20 0.2.0
+
+Summary:
+
+This release refactors the module fairly expensively, and adds Passenger 4
+support.
+
+Features:
+- Parameters in `passenger` class:
+ - `package_name`: Name of the passenger package.
+ - `package_ensure`: Ensure state of the passenger package.
+ - `package_provider`: Provider to use to install passenger.
+ - `passenger_root`: Root directory for passenger.
+
+
 * 2013-07-31 0.1.0
 
 Summary:
