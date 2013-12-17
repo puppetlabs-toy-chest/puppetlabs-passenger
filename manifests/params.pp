@@ -16,6 +16,7 @@ class passenger::params {
   $passenger_ruby     = '/usr/bin/ruby'
   $package_provider   = 'gem'
   $passenger_provider = 'gem'
+  $compile_passenger  = false
 
   if versioncmp ($passenger_version, '4.0.0') > 0 {
     $builddir     = 'buildout'
