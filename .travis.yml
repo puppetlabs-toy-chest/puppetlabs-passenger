@@ -26,6 +26,7 @@ env:
         B5J8VRWFHZQQHhz4sTs3BFRV3FLIjyCFF0GyE9oNEx3tghgDi5dpGAbcrti3FYR8r2drQNU
         WSYlWXYSNNIlA7xJIvgjoqRmSm3s8=
 matrix:
+  fast_finish: true
   exclude:
     - rvm: 1.9.3
       env: PUPPET_GEM_VERSION="~> 2.7.0"
