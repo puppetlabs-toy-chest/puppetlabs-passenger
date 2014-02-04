@@ -11,8 +11,8 @@
 # Sample Usage:
 #
 class passenger::params {
-  $package_ensure     = '3.0.9'
-  $passenger_version  = '3.0.9'
+  $package_ensure     = '3.0.21'
+  $passenger_version  = '3.0.21'
   $passenger_ruby     = '/usr/bin/ruby'
   $package_provider   = 'gem'
   $passenger_provider = 'gem'

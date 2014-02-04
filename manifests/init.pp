@@ -31,12 +31,12 @@
 # Usage:
 #
 #  class { 'passenger':
-#    passenger_version      => '3.0.9',
+#    passenger_version      => '3.0.21',
 #    passenger_ruby         => '/usr/bin/ruby'
 #    gem_path               => '/var/lib/gems/1.8/gems',
 #    gem_binary_path        => '/var/lib/gems/1.8/bin',
-#    passenger_root         => '/var/lib/gems/1.8/gems/passenger-3.0.9'
-#    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.9/ext/apache2/mod_passenger.so',
+#    passenger_root         => '/var/lib/gems/1.8/gems/passenger-3.0.21'
+#    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.21/ext/apache2/mod_passenger.so',
 #    passenger_provider     => 'gem',
 #    passenger_package      => 'passenger',
 #  }
