@@ -58,14 +58,36 @@ class passenger (
   $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
   $passenger_version      = $passenger::params::passenger_version,
+  $compile_passenger      = $passenger::params::compile_passenger
 ) inherits passenger::params {
+
+  $package_dependencies = $passenger::params::package_dependencies
 
   include '::apache'
   include '::apache::dev'
 
-  include '::passenger::install'
-  include '::passenger::config'
-  include '::passenger::compile'
+  class { '::passenger::install':
+    package_name         => $package_name,
+    package_ensure       => $package_ensure,
+    package_provider     => $package_provider,
+    package_dependencies => $package_dependencies
+  }
+  class { '::passenger::config':
+    mod_passenger_location => $mod_passenger_location,
+    passenger_root         => $passenger_root,
+    passenger_ruby         => $passenger_ruby,
+    passenger_version      => $passenger_version,
+  }
+
+  if $compile_passenger {
+    class { '::passenger::compile':
+      gem_binary_path        => $gem_binary_path,
+      mod_passenger_location => $mod_passenger_location
+    }
+    Class['passenger::install'] ->
+    Class['passenger::compile'] ->
+    Class['passenger::config']
+  }
 
   anchor { 'passenger::begin': }
   anchor { 'passenger::end': }
@@ -74,8 +96,8 @@ class passenger (
   Anchor['passenger::begin'] ->
   Class['apache::dev'] ->
   Class['passenger::install'] ->
-  Class['passenger::compile'] ->
   Class['passenger::config'] ->
   Anchor['passenger::end']
+
 
 }
