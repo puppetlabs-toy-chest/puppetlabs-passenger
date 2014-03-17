@@ -5,6 +5,7 @@ class passenger::compile {
     command   => 'passenger-install-apache2-module -a',
     logoutput => on_failure,
     creates   => $passenger::mod_passenger_location,
+    timeout   => 0,
   }
 
 }
