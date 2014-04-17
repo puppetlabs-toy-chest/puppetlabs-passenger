@@ -40,7 +40,11 @@ class passenger::params {
       }
     }
     'redhat': {
-      $package_dependencies   = [ 'libcurl-devel', 'openssl-devel', 'zlib-devel' ]
+      case $::lsbmajdistrelease {
+        '5'     : { $curl_package = 'curl-devel' }
+        default : { $curl_package = 'libcurl-devel' }
+      }
+      $package_dependencies   = [ $curl_package, 'openssl-devel', 'zlib-devel' ]
       $package_name           = 'passenger'
       $passenger_package      = 'passenger'
       $gem_path               = '/usr/lib/ruby/gems/1.8/gems'
