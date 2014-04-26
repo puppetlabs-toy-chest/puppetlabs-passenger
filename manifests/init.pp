@@ -28,6 +28,9 @@
 #   [*passenger_package*]
 #     The name of the Passenger package
 #
+#   [*include_build_tools*]
+#     Boolean to require gcc and make classes. Default is false.
+#
 # Usage:
 #
 #  class { 'passenger':
@@ -39,12 +42,17 @@
 #    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.21/ext/apache2/mod_passenger.so',
 #    passenger_provider     => 'gem',
 #    passenger_package      => 'passenger',
+#    include_build_tools    => 'true',
 #  }
 #
 #
 # Requires:
 #   - apache
 #   - apache::dev
+#
+# Optionally requires
+#   - gcc
+#   - make
 #
 class passenger (
   $gem_binary_path        = $passenger::params::gem_binary_path,
@@ -58,6 +66,7 @@ class passenger (
   $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
   $passenger_version      = $passenger::params::passenger_version,
+  $include_build_tools    = false,
 ) inherits passenger::params {
 
   include '::apache'
@@ -66,6 +75,18 @@ class passenger (
   include '::passenger::install'
   include '::passenger::config'
   include '::passenger::compile'
+
+  if type($include_build_tools) == 'string' {
+    $include_build_tools_real = str2bool($include_build_tools)
+  } else {
+    $include_build_tools_real = $include_build_tools
+  }
+  validate_bool($include_build_tools_real)
+
+  if $include_build_tools_real == true {
+    require 'gcc'
+    require 'make'
+  }
 
   anchor { 'passenger::begin': }
   anchor { 'passenger::end': }
