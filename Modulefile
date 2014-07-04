@@ -1,5 +1,5 @@
 name 'puppetlabs-passenger'
-version '0.2.0'
+version '0.3.0'
 source 'git://github.com/puppetlabs/puppetlabs-passenger.git'
 author 'puppetlabs'
 license 'Apache 2.0'

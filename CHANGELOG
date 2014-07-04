@@ -1,3 +1,16 @@
+* 2014-06-03 0.3.0
+
+Summary:
+
+The major change here is to use an updated 3.0.x release.
+
+Features:
+- Use the last version in the 3.0.x releases as the default.
+
+Fixes:
+- Fixed timeout when compiling passenger on 'slow' machines
+
+
 * 2013-11-20 0.2.0
 
 Summary:
