@@ -15,6 +15,37 @@ describe 'passenger' do
     }
   end
 
+  it { should compile.with_all_deps }
+
+  describe 'with include_build_tools' do
+    context 'using the default value' do
+      let(:params) { { :include_build_tools => false } }
+
+      it { should_not contain_class('gcc') }
+      it { should_not contain_class('make') }
+      it { should compile.with_all_deps }
+    end
+
+    ['true',true].each do |value|
+      context "specified as #{value}" do
+        let(:params) { { :include_build_tools => value } }
+
+        it { should contain_class('gcc') }
+        it { should contain_class('make') }
+        it { should compile.with_all_deps }
+      end
+    end
+    ['false',false].each do |value|
+      context "specified as #{value}" do
+        let(:params) { { :include_build_tools => value } }
+
+        it { should_not contain_class('gcc') }
+        it { should_not contain_class('make') }
+        it { should compile.with_all_deps }
+      end
+    end
+  end
+
   describe 'on RedHat' do
     let(:facts) do
       { :osfamily => 'redhat', :operatingsystemrelease => '6.4', :concat_basedir => '/dne' }
