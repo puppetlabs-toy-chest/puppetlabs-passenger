@@ -77,7 +77,7 @@ class passenger (
     }
     'redhat': {
       $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
-      $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
+      $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
     }
   }
 
