@@ -66,6 +66,9 @@ class passenger (
     'x86_64': {
       $libpath = 'lib64'
     }
+    'amd64': {
+      $libpath = 'lib64'
+    }
     default: {
       fail("Architecture $::architecture is unsupported by the passenger module.")
     }
