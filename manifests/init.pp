@@ -59,14 +59,25 @@ class passenger (
 ) inherits passenger::params {
 
   # logic to work around params.pp issues
+  case $::architecture {
+    'i386': {
+      $libpath = 'lib'
+    }
+    'x86_64': {
+      $libpath = 'lib64'
+    }
+    default: {
+      fail("Architecture $::architecture is unsupported by the passenger module.")
+    }
+  }
   case $::osfamily {
     'debian': {
       $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
       $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
     }
     'redhat': {
-      $passenger_root         = "/usr/lib/ruby/gems/1.8/gems/passenger-${passenger_version}"
-      $mod_passenger_location = "/usr/lib/ruby/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
+      $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
+      $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
     }
   }
 
