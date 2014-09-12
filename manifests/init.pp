@@ -60,6 +60,18 @@ class passenger (
   $passenger_version      = $passenger::params::passenger_version,
 ) inherits passenger::params {
 
+  # logic to work around params.pp issues
+  case $::osfamily {
+    'debian': {
+      $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
+      $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
+    }
+    'redhat': {
+      $passenger_root         = "/usr/lib/ruby/gems/1.8/gems/passenger-${passenger_version}"
+      $mod_passenger_location = "/usr/lib/ruby/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
+    }
+  }
+
   include '::apache'
   include '::apache::dev'
 
