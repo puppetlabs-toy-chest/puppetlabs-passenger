@@ -63,10 +63,7 @@ class passenger (
     'i386': {
       $libpath = 'lib'
     }
-    'x86_64': {
-      $libpath = 'lib64'
-    }
-    'amd64': {
+    'x86_64', 'amd64': {
       $libpath = 'lib64'
     }
     default: {
@@ -79,8 +76,19 @@ class passenger (
       $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
     }
     'redhat': {
-      $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
-      $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
+      case $::operatingsystemmajrelease {
+        '6': {
+          $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
+        }
+        '7': {
+          $passenger_root         = "/usr/local/share/gems/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "/usr/local/share/gems/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
+        }
+        default: {
+          fail("el ${::operatingsystemmajrelease} systems not supported by passenger module.")
+        }
+      }
     }
   }
 
