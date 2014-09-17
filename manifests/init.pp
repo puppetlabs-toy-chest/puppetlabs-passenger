@@ -72,21 +72,29 @@ class passenger (
   }
   case $::osfamily {
     'debian': {
-      $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
-      $mod_passenger_location = "/var/lib/gems/1.8/gems/passenger-${passenger_version}/ext/apache2/mod_passenger.so"
+      case $::operatingsystemmajrelease {
+        '12.04': {
+	  $passenger_root         = "/var/lib/gems/1.0.1/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
+	}
+        default: {
+          $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/ext/apache2/mod_passenger.so"
+	}
+      }
     }
     'redhat': {
       case $::operatingsystemmajrelease {
         '5', '6': {
 	  if ($::operatingsystemmajrelease == '5' and $passenger_version != $passenger::params::passenger_version) {
-	    fail("Passenger versions beyond ${passenger::params::passenger_version} on ${::operatingsystemmajrelease} is unsupported by passenger module.")
+	    fail("Passenger versions other than ${passenger::params::passenger_version} on ${::operatingsystemmajrelease} is unsupported by passenger module.")
 	  }
           $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
-          $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
         }
         '7': {
           $passenger_root         = "/usr/local/share/gems/gems/passenger-${passenger_version}"
-          $mod_passenger_location = "/usr/local/share/gems/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
         }
         default: {
           fail("el ${::operatingsystemmajrelease} systems not supported by passenger module.")
