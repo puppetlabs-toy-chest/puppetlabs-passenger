@@ -77,7 +77,7 @@ class passenger (
     }
     'redhat': {
       case $::operatingsystemmajrelease {
-        '6': {
+        '5,' '6': {
           $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
           $mod_passenger_location = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}/buildout/apache2/mod_passenger.so"
         }
