@@ -73,7 +73,7 @@ class passenger (
   case $::osfamily {
     'debian': {
       case $::operatingsystemmajrelease {
-	'10.04', '12.04': {
+	'6', '10.04', '12.04': {
 	  $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
           $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
         }
@@ -93,6 +93,7 @@ class passenger (
 	  if ($::operatingsystemmajrelease == '5' and $passenger_version != $passenger::params::passenger_version) {
 	    fail("Passenger versions other than ${passenger::params::passenger_version} on ${::operatingsystemmajrelease} is unsupported by passenger module.")
 	  }
+	  /var/lib/gems/1.8/gems/passenger-4.0.50/buildout/apache2/mod_passenger.so
           $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
           $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
         }
