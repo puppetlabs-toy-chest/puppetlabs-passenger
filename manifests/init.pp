@@ -73,8 +73,8 @@ class passenger (
   case $::osfamily {
     'debian': {
       case $::operatingsystemmajrelease {
-        '12.04': {
-	  $passenger_root         = "/var/lib/gems/1.0.1/gems/passenger-${passenger_version}"
+        '12.04', '14.04': {
+	  $passenger_root         = "/var/lib/gems/1.9.1/gems/passenger-${passenger_version}"
           $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
 	}
         default: {
