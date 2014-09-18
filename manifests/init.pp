@@ -90,9 +90,6 @@ class passenger (
     'redhat': {
       case $::operatingsystemmajrelease {
         '5', '6': {
-	  if ($::operatingsystemmajrelease == '5' and $passenger_version != $passenger::params::passenger_version) {
-	    fail("Passenger versions other than ${passenger::params::passenger_version} on ${::operatingsystemmajrelease} is unsupported by passenger module.")
-	  }
           $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
           $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
         }
