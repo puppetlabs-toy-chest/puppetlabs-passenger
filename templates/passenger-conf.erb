@@ -1,6 +1,6 @@
-LoadModule passenger_module <%= @mod_passenger_location %>
-PassengerRoot <%= @passenger_root %>
-PassengerRuby <%= @passenger_ruby %>
+LoadModule passenger_module <%= scope.lookupvar('passenger::mod_passenger_location') %>
+PassengerRoot <%= scope.lookupvar('passenger::passenger_root') %>
+PassengerRuby <%= scope.lookupvar('passenger::passenger_ruby') %>
 
 # you probably want to tune these settings
 PassengerHighPerformance on
@@ -8,7 +8,7 @@ PassengerMaxPoolSize 12
 PassengerPoolIdleTime 1500
 # PassengerMaxRequests 1000
 PassengerStatThrottleRate 120
-<% if @passenger_version =~ /^4\.\d+\.\d+/ -%>
+<% if scope.lookupvar('passenger::passenger_version') =~ /^4\.\d+\.\d+/ -%>
 PassengerEnabled on
 <% else -%>
 RailsAutoDetect On
