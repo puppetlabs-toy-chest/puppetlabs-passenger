@@ -56,7 +56,11 @@ class passenger (
       $libpath = 'lib'
     }
     'x86_64', 'amd64': {
-      $libpath = 'lib64'
+      if $::operatingsystemmajrelease == '5' {
+        $libpath = 'lib'
+      } else {
+        $libpath = 'lib64'
+      }
     }
     default: {
       fail("Architecture ${::architecture} is unsupported by the passenger module.")

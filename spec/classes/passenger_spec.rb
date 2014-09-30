@@ -61,6 +61,21 @@ describe 'passenger' do
         should contain_file('/etc/httpd/conf.d/passenger.conf').with_content(/PassengerRoot \/usr\/lib\/ruby\/gems\/1.8\/gems\/passenger-3.0.19/)
       end
     end
+    context 'on RHEL 5 x86_64' do
+      let (:facts) do
+        {
+          :osfamily => 'redhat',
+          :operatingsystemrelease => '5.11',
+          :operatingsystemmajrelease => '5',
+          :architecture   => 'x86_64',
+          :concat_basedir => '/dne'
+        }
+      end
+      it 'uses proper paths' do
+        should contain_file('/etc/httpd/conf.d/passenger.conf').with_content(/LoadModule passenger_module \/usr\/lib\/ruby\/gems\/1.8\/gems\/passenger-3.0.19\/buildout\/apache2\/mod_passenger.so/)
+        should contain_file('/etc/httpd/conf.d/passenger.conf').with_content(/PassengerRoot \/usr\/lib\/ruby\/gems\/1.8\/gems\/passenger-3.0.19/)
+      end
+    end
   end
 
   describe 'on Debian' do
