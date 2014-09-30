@@ -16,12 +16,6 @@
 #   [*gem_binary_path*]
 #     Path to Rubygems binaries on your system
 #
-#   [*passenger_root*]
-#     The passenger gem root directory
-#
-#   [*mod_passenger_location*]
-#     Path to Passenger's mod_passenger.so file
-#
 #   [*passenger_provider*]
 #     The package provider to use for the system
 #
@@ -35,8 +29,6 @@
 #    passenger_ruby         => '/usr/bin/ruby'
 #    gem_path               => '/var/lib/gems/1.8/gems',
 #    gem_binary_path        => '/var/lib/gems/1.8/bin',
-#    passenger_root         => '/var/lib/gems/1.8/gems/passenger-3.0.21'
-#    mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-3.0.21/ext/apache2/mod_passenger.so',
 #    passenger_provider     => 'gem',
 #    passenger_package      => 'passenger',
 #  }
@@ -49,16 +41,64 @@
 class passenger (
   $gem_binary_path        = $passenger::params::gem_binary_path,
   $gem_path               = $passenger::params::gem_path,
-  $mod_passenger_location = $passenger::params::mod_passenger_location,
   $package_name           = $passenger::params::package_name,
   $package_ensure         = $passenger::params::package_ensure,
   $package_provider       = $passenger::params::package_provider,
   $passenger_package      = $passenger::params::passenger_package,
   $passenger_provider     = $passenger::params::passenger_provider,
-  $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
   $passenger_version      = $passenger::params::passenger_version,
 ) inherits passenger::params {
+
+  # logic to work around params.pp string interpolation issues
+  case $::architecture {
+    'i386': {
+      $libpath = 'lib'
+    }
+    'x86_64', 'amd64': {
+      if $::operatingsystemmajrelease == '5' {
+        $libpath = 'lib'
+      } else {
+        $libpath = 'lib64'
+      }
+    }
+    default: {
+      fail("Architecture ${::architecture} is unsupported by the passenger module.")
+    }
+  }
+  case $::osfamily {
+    'debian': {
+      case $::operatingsystemmajrelease {
+        '6', '10.04', '12.04': {
+          $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
+        }
+        '7','14.04': {
+          $passenger_root         = "/var/lib/gems/1.9.1/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
+        }
+        default: {
+          $passenger_root         = "/var/lib/gems/1.8/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/ext/apache2/mod_passenger.so"
+        }
+      }
+    }
+    'redhat': {
+      case $::operatingsystemmajrelease {
+        '5', '6': {
+          $passenger_root         = "/usr/${libpath}/ruby/gems/1.8/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
+        }
+        '7': {
+          $passenger_root         = "/usr/local/share/gems/gems/passenger-${passenger_version}"
+          $mod_passenger_location = "${passenger_root}/buildout/apache2/mod_passenger.so"
+        }
+        default: {
+          fail("el ${::operatingsystemmajrelease} systems not supported by passenger module.")
+        }
+      }
+    }
+  }
 
   include '::apache'
   include '::apache::dev'

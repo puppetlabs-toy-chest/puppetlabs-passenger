@@ -1,0 +1,3 @@
+*.swp
+spec/fixtures/*
+.rspec-system/
