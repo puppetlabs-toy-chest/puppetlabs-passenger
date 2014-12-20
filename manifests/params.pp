@@ -40,7 +40,7 @@ class passenger::params {
       }
     }
     'redhat': {
-      $package_dependencies   = [ 'libcurl-devel', 'openssl-devel', 'zlib-devel' ]
+      $package_dependencies   = [ 'libcurl-devel', 'openssl-devel', 'zlib-devel', 'ruby-devel', 'gcc-c++' ]
       $package_name           = 'passenger'
       $passenger_package      = 'passenger'
       $gem_path               = '/usr/lib/ruby/gems/1.8/gems'
