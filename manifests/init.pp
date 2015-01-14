@@ -58,24 +58,35 @@ class passenger (
   $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
   $passenger_version      = $passenger::params::passenger_version,
+  $install_config         = $passenger::params::install_config,
 ) inherits passenger::params {
 
   include '::apache'
   include '::apache::dev'
 
   include '::passenger::install'
-  include '::passenger::config'
+  if $install_config {
+    include '::passenger::config'
+  }
   include '::passenger::compile'
 
   anchor { 'passenger::begin': }
   anchor { 'passenger::end': }
 
   #projects.puppetlabs.com - bug - #8040: Anchoring pattern
-  Anchor['passenger::begin'] ->
-  Class['apache::dev'] ->
-  Class['passenger::install'] ->
-  Class['passenger::compile'] ->
-  Class['passenger::config'] ->
-  Anchor['passenger::end']
-
+  if $install_config {
+    Anchor['passenger::begin'] ->
+    Class['apache::dev'] ->
+    Class['passenger::install'] ->
+    Class['passenger::compile'] ->
+    Class['passenger::config'] ->
+    Anchor['passenger::end']
+  } else {
+    # anchoring pattern without config
+    Anchor['passenger::begin'] ->
+    Class['apache::dev'] ->
+    Class['passenger::install'] ->
+    Class['passenger::compile'] ->
+    Anchor['passenger::end']
+  }
 }
