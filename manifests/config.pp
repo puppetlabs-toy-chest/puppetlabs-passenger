@@ -1,7 +1,7 @@
 #
 class passenger::config (
   $passenger_conf_template = $passenger::params::passenger_conf_template,
-  $passenger_load_template = $passenger::params::passenger_load_template,  
+  $passenger_load_template = $passenger::params::passenger_load_template,
 ) inherits passenger::params {
 
   case $::osfamily {

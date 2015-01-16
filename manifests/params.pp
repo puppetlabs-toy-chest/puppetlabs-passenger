@@ -65,7 +65,7 @@ class passenger::params {
         $mod_passenger_location = "/usr/local/share/gems/gems/passenger-${passenger_version}/${builddir}/apache2/mod_passenger.so"
       } else {
         $package_ensure         = $default_package_ensure
-        $passenger_version      = $default_passenger_version      
+        $passenger_version      = $default_passenger_version
         $gem_path               = '/usr/lib/ruby/gems/1.8/gems'
         $gem_binary_path        = '/usr/lib/ruby/gems/1.8/gems/bin'
         $passenger_root         = "/usr/lib/ruby/gems/1.8/gems/passenger-${passenger_version}"
