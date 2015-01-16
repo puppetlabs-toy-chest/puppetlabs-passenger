@@ -55,7 +55,7 @@ class passenger::params {
       $passenger_load_template = undef
       
       # not sure what fedora operatingsystemmajrelease is so only pulling RHEL 7.x /Centos 7.x
-      if $::operatingsystemmajrelease >= 7 and $::operatingsystemmajrelease < 8 {
+      if versioncmp($::operatingsystemmajrelease, '7') >= 0 and versioncmp($::operatingsystemmajrelease, '8') < 0 {
         # need newer version of passenger than 3.0.21
         $package_ensure         = '4.0.57'
         $passenger_version      = '4.0.57'
