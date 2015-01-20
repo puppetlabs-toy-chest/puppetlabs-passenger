@@ -5,7 +5,7 @@ class passenger::config {
     'debian': {
       file { '/etc/apache2/mods-available/passenger.load':
         ensure  => present,
-        content => template('passenger/passenger-load.erb'),
+        content => template($passenger::passenger_load_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
@@ -14,7 +14,7 @@ class passenger::config {
 
       file { '/etc/apache2/mods-available/passenger.conf':
         ensure  => present,
-        content => template('passenger/passenger-enabled.erb'),
+        content => template($passenger::passenger_conf_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
@@ -45,7 +45,7 @@ class passenger::config {
 
       file { '/etc/httpd/conf.d/passenger.conf':
         ensure  => present,
-        content => template('passenger/passenger-conf.erb'),
+        content => template($passenger::passenger_conf_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
