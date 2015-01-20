@@ -47,18 +47,20 @@
 #   - apache::dev
 #
 class passenger (
-  $gem_binary_path        = $passenger::params::gem_binary_path,
-  $gem_path               = $passenger::params::gem_path,
-  $mod_passenger_location = $passenger::params::mod_passenger_location,
-  $package_name           = $passenger::params::package_name,
-  $package_ensure         = $passenger::params::package_ensure,
-  $package_provider       = $passenger::params::package_provider,
-  $passenger_package      = $passenger::params::passenger_package,
-  $passenger_provider     = $passenger::params::passenger_provider,
-  $passenger_root         = $passenger::params::passenger_root,
-  $passenger_ruby         = $passenger::params::passenger_ruby,
-  $passenger_version      = $passenger::params::passenger_version,
-  $install_config         = $passenger::params::install_config,
+  $gem_binary_path         = $passenger::params::gem_binary_path,
+  $gem_path                = $passenger::params::gem_path,
+  $mod_passenger_location  = $passenger::params::mod_passenger_location,
+  $package_name            = $passenger::params::package_name,
+  $package_ensure          = $passenger::params::package_ensure,
+  $package_provider        = $passenger::params::package_provider,
+  $passenger_package       = $passenger::params::passenger_package,
+  $passenger_provider      = $passenger::params::passenger_provider,
+  $passenger_root          = $passenger::params::passenger_root,
+  $passenger_ruby          = $passenger::params::passenger_ruby,
+  $passenger_version       = $passenger::params::passenger_version,
+  $install_config          = $passenger::params::install_config,
+  $passenger_conf_template = $passenger::params::passenger_conf_template,
+  $passenger_load_template = $passenger::params::passenger_load_template,
 ) inherits passenger::params {
 
   include '::apache'

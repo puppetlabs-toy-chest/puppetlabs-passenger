@@ -1,14 +1,11 @@
 #
-class passenger::config (
-  $passenger_conf_template = $passenger::params::passenger_conf_template,
-  $passenger_load_template = $passenger::params::passenger_load_template,
-) inherits passenger::params {
+class passenger::config {
 
   case $::osfamily {
     'debian': {
       file { '/etc/apache2/mods-available/passenger.load':
         ensure  => present,
-        content => template($passenger_load_template),
+        content => template($passenger::passenger_load_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
@@ -17,7 +14,7 @@ class passenger::config (
 
       file { '/etc/apache2/mods-available/passenger.conf':
         ensure  => present,
-        content => template($passenger_conf_template),
+        content => template($passenger::passenger_conf_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
@@ -48,7 +45,7 @@ class passenger::config (
 
       file { '/etc/httpd/conf.d/passenger.conf':
         ensure  => present,
-        content => template($passenger_conf_template),
+        content => template($passenger::passenger_conf_template),
         owner   => '0',
         group   => '0',
         mode    => '0644',
