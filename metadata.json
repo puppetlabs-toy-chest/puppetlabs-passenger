@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-passenger",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "puppetlabs",
   "summary": "Configures and manages Passenger.",
   "license": "Apache-2.0",
@@ -49,10 +49,10 @@
     }
   ],
   "dependencies": [
-    {"name":"puppetlabs/apache","version_requirement":">= 1.0.0"}
-    {"name":"puppetlabs/ruby","version_requirement":">= 0.1.0"}
-    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0"}
-    {"name":"croddy/make","version_requirement":">= 0.5.0"}
-    {"name":"puppetlabs/gcc","version_requirement":">= 0.2.0"}
+    {"name":"puppetlabs/apache","version_requirement":">= 1.0.0 < 2.0.0"},
+    {"name":"puppetlabs/ruby","version_requirement":">= 0.1.0 < 1.0.0"},
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0 < 5.0.0"},
+    {"name":"croddy/make","version_requirement":">= 0.5.0 < 1.0.0"},
+    {"name":"puppetlabs/gcc","version_requirement":">= 0.2.0 < 1.0.0"}
   ]
 }
