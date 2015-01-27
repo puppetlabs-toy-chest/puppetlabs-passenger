@@ -49,29 +49,49 @@ The `passenger` class has a set of configurable parameters that allow you to con
 
 **Parameters within `passenger`**
 
-####`passenger_version`
+####`gem_binary_path`
 
-The Version of Passenger to be installed
+Path to Rubygems binaries on your system
 
 ####`gem_path`
 
 The path to rubygems on your system
 
-####`gem_binary_path`
-
-Path to Rubygems binaries on your system
-
 ####`mod_passenger_location`
 
 Path to Passenger's mod_passenger.so file
+
+####`package_ensure`
+
+Ensure the state of the passenger package
+
+####`package_provider`
+
+Provider to use to install passenger
+
+####`passenger_package`
+
+The name of the Passenger package
 
 ####`passenger_provider`
 
 The package provider to use for the system
 
-####`passenger_package`
+####`passenger_root`
 
-The name of the Passenger package
+Root directory for passenger
+
+####`passenger_ruby`
+
+Allows you to customize what ruby binary is used
+
+####`passenger_version`
+
+The Version of Passenger to be installed
+
+####`compile_passenger`
+
+Whether or not to include the `passenger::compile` class. Defaults to true.
 
 Implementation
 ---------------

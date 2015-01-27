@@ -58,7 +58,7 @@ class passenger (
   $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
   $passenger_version      = $passenger::params::passenger_version,
-  $compile_passenger      = $passenger::params::compile_passenger
+  $compile_passenger      = $passenger::params::compile_passenger,
 ) inherits passenger::params {
 
   include '::apache'
