@@ -1,0 +1,58 @@
+{
+  "name": "puppetlabs-passenger",
+  "version": "0.4.0",
+  "author": "puppetlabs",
+  "summary": "Configures and manages Passenger.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-passenger",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-passenger",
+  "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 2.7.0 < 4.0.0"
+    }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs/apache","version_requirement":">= 1.0.0 < 2.0.0"},
+    {"name":"puppetlabs/ruby","version_requirement":">= 0.1.0 < 1.0.0"},
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0 < 5.0.0"},
+    {"name":"croddy/make","version_requirement":">= 0.5.0 < 1.0.0"},
+    {"name":"puppetlabs/gcc","version_requirement":">= 0.2.0 < 1.0.0"}
+  ]
+}
