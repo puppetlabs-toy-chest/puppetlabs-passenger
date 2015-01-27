@@ -39,6 +39,7 @@ This will establish Passenger on your node with sane default values. However, yo
         gem_binary_path        => '/var/lib/gems/1.8/bin',
         passenger_root         => '/var/lib/gems/1.8/gems/passenger-2.2.11'
         mod_passenger_location => '/var/lib/gems/1.8/gems/passenger-2.2.11/ext/apache2/mod_passenger.so',
+        include_build_tools    => true,
       }
     }
  
@@ -56,6 +57,10 @@ Path to Rubygems binaries on your system
 ####`gem_path`
 
 The path to rubygems on your system
+
+####`include_build_tools`
+
+Boolean to require gcc and make classes. Default is false.
 
 ####`mod_passenger_location`
 
