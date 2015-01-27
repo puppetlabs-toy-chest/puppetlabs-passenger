@@ -11,7 +11,8 @@ describe 'passenger' do
       :gem_path               => '/opt/lib/ruby/gems/1.9.1/gems',
       :gem_binary_path        => '/opt/lib/ruby/bin',
       :passenger_root         => '/opt/lib/ruby/gems/1.9.1/gems/passenger-3.0.19',
-      :mod_passenger_location => '/opt/lib/ruby/gems/1.9.1/gems/passenger-3.0.19/ext/apache2/mod_passenger.so'
+      :mod_passenger_location => '/opt/lib/ruby/gems/1.9.1/gems/passenger-3.0.19/ext/apache2/mod_passenger.so',
+      :compile_passenger      => true
     }
   end
 
