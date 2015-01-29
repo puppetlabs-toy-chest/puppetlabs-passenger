@@ -1,3 +1,8 @@
+##2015-01-29 - Release 0.4.1
+###Summary
+
+This release fixes a typo in the version requirement for 'croddy/make' in the metadata.
+
 ##2015-01-27 - Release 0.4.0
 ###Summary
 
