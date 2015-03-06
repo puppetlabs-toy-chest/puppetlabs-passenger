@@ -45,7 +45,7 @@ class passenger::config {
 
       file { '/etc/httpd/conf.d/passenger.conf':
         ensure  => present,
-        content => template('passenger/passenger-conf.erb'),
+        content => template('passenger/passenger-load.erb', 'passenger/passenger-enabled.erb'),
         owner   => '0',
         group   => '0',
         mode    => '0644',
