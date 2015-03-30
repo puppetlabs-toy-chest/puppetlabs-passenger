@@ -8,7 +8,7 @@ PassengerMaxPoolSize 12
 PassengerPoolIdleTime 1500
 # PassengerMaxRequests 1000
 PassengerStatThrottleRate 120
-<% if scope.lookupvar('passenger::passenger_version') =~ /^4\.\d+\.\d+/ -%>
+<% if scope.lookupvar('passenger::passenger_version').split('.')[0].to_i >= 4 -%>
 PassengerEnabled on
 <% else -%>
 RailsAutoDetect On
