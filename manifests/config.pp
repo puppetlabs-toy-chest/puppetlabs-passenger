@@ -22,6 +22,10 @@ class passenger::config {
       }
 
       file { '/etc/apache2/mods-enabled/passenger.load':
+        ensure => 'absent',
+      }
+
+      file { '/etc/apache2/mods-enabled/zzz_passenger.load':
         ensure  => 'link',
         target  => '/etc/apache2/mods-available/passenger.load',
         owner   => '0',
@@ -32,6 +36,10 @@ class passenger::config {
       }
 
       file { '/etc/apache2/mods-enabled/passenger.conf':
+        ensure => 'absent',
+      }
+
+      file { '/etc/apache2/mods-enabled/zzz_passenger.conf':
         ensure  => 'link',
         target  => '/etc/apache2/mods-available/passenger.conf',
         owner   => '0',
@@ -44,6 +52,10 @@ class passenger::config {
     'redhat': {
 
       file { '/etc/httpd/conf.d/passenger.conf':
+        ensure => 'absent',
+      }
+
+      file { '/etc/httpd/conf.d/zzz_passenger.conf':
         ensure  => present,
         content => template('passenger/passenger-conf.erb'),
         owner   => '0',

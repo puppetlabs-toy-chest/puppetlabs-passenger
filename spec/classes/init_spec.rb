@@ -90,12 +90,12 @@ describe 'passenger' do
     end
 
     it 'adds symlinks mods-enabled to load modules' do
-      should contain_file('/etc/apache2/mods-enabled/passenger.conf').with(
+      should contain_file('/etc/apache2/mods-enabled/zzz_passenger.conf').with(
         :ensure => 'link',
         :target => '/etc/apache2/mods-available/passenger.conf'
       )
 
-      should contain_file('/etc/apache2/mods-enabled/passenger.load').with(
+      should contain_file('/etc/apache2/mods-enabled/zzz_passenger.load').with(
         :ensure => 'link',
         :target => '/etc/apache2/mods-available/passenger.load'
       )
