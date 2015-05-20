@@ -65,6 +65,7 @@ class passenger (
   $passenger_provider     = $passenger::params::passenger_provider,
   $passenger_root         = $passenger::params::passenger_root,
   $passenger_ruby         = $passenger::params::passenger_ruby,
+  $passenger_app_env   = $passenger::params::passenger_app_env,
   $passenger_version      = $passenger::params::passenger_version,
   $compile_passenger      = $passenger::params::compile_passenger,
   $include_build_tools    = false,

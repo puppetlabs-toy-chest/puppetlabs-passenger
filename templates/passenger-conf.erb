@@ -1,6 +1,7 @@
 LoadModule passenger_module <%= scope.lookupvar('passenger::mod_passenger_location') %>
 PassengerRoot <%= scope.lookupvar('passenger::passenger_root') %>
 PassengerRuby <%= scope.lookupvar('passenger::passenger_ruby') %>
+PassengerAppEnv <%= scope.lookupvar('passenger::passenger_app_env') %>
 
 # you probably want to tune these settings
 PassengerHighPerformance on

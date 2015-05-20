@@ -4,12 +4,12 @@ passenger
 Overview
 --------
 
-The Passenger module allows easy configuration and management of Phusion Passenger.      
+The Passenger module allows easy configuration and management of Phusion Passenger.
 
 Module Description
 -------------------
 
-The Passenger module lets you run Rails or Rack inside Apache with ease. Utilizing [Passenger](http://www.modrails.com), an application server for Ruby (Rack) and Python (WSGI) apps, the Passenger module enables quick configuration of Passenger for Apache. 
+The Passenger module lets you run Rails or Rack inside Apache with ease. Utilizing [Passenger](http://www.modrails.com), an application server for Ruby (Rack) and Python (WSGI) apps, the Passenger module enables quick configuration of Passenger for Apache.
 
 Setup
 -----
@@ -17,10 +17,10 @@ Setup
 **What Passenger affects:**
 
 * Apache
-* installs packages on chosen nodes 
+* installs packages on chosen nodes
 * package/service/configuration files for Passenger
-	
-### Beginning with Passenger	
+
+### Beginning with Passenger
 
 Install and begin managing Passenger on a node by declaring the class in your node definition:
 
@@ -42,11 +42,11 @@ This will establish Passenger on your node with sane default values. However, yo
         include_build_tools    => true,
       }
     }
- 
+
 Usage
 ------
 
-The `passenger` class has a set of configurable parameters that allow you to control aspects of Passenger's installation. 
+The `passenger` class has a set of configurable parameters that allow you to control aspects of Passenger's installation.
 
 **Parameters within `passenger`**
 
@@ -90,6 +90,10 @@ Root directory for passenger
 
 Allows you to customize what ruby binary is used
 
+####`passenger_app_env`
+
+Set the Application environment
+
 ####`passenger_version`
 
 The Version of Passenger to be installed
@@ -101,7 +105,7 @@ Whether or not to include the `passenger::compile` class. Defaults to true.
 Implementation
 ---------------
 
-This module operates by compiling Ruby gems on the system being managed. 
+This module operates by compiling Ruby gems on the system being managed.
 
 Limitations
 ------------
