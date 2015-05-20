@@ -14,6 +14,7 @@ class passenger::params {
   $package_ensure     = '3.0.21'
   $passenger_version  = '3.0.21'
   $passenger_ruby     = '/usr/bin/ruby'
+  $passenger_app_env = 'production'
   $package_provider   = 'gem'
   $passenger_provider = 'gem'
   $compile_passenger  = true
