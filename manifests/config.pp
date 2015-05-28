@@ -1,5 +1,8 @@
-#
 class passenger::config {
+  $passenger_ruby         = $passenger::passenger_ruby
+  $passenger_version      = $passenger::passenger_version
+  $mod_passenger_location = $passenger::options::mod_passenger_location
+  $passenger_root         = $passenger::options::passenger_root
 
   case $::osfamily {
     'debian': {
