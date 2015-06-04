@@ -1,16 +1,19 @@
-<IfModule mod_passenger.c>
-	PassengerRoot <%= @passenger_root %>
-	PassengerRuby <%= @passenger_ruby %>
+PassengerRoot <%= scope.lookupvar('passenger::passenger_root') %>
+PassengerRuby <%= scope.lookupvar('passenger::passenger_ruby') %>
 
-	# you probably want to tune these settings
-	PassengerHighPerformance on
-	PassengerMaxPoolSize 12
-	PassengerPoolIdleTime 1500
-	# PassengerMaxRequests 1000
-	PassengerStatThrottleRate 120
-<% if @passenger_version =~ /^4\.\d+\.\d+/ %>
-	PassengerEnabled on
+# you probably want to tune these settings
+PassengerHighPerformance on
+PassengerMaxPoolSize 12
+PassengerPoolIdleTime 1500
+# PassengerMaxRequests 1000
+PassengerStatThrottleRate 120
+<%
+major_version = scope.lookupvar('passenger::passenger_version').match(/^(\d+)\./)
+major_version = major_version[1] if major_version
+
+if major_version and major_version.to_i >= 4
+-%>
+PassengerEnabled on
 <% else -%>
-	RailsAutoDetect On
+RailsAutoDetect On
 <% end -%>
-</IfModule>
