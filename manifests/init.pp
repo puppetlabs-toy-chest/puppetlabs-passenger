@@ -83,7 +83,7 @@ class passenger (
     Class['passenger::config']
   }
 
-  if type($include_build_tools) == 'string' {
+  if type3x($include_build_tools) == 'string' {
     $include_build_tools_real = str2bool($include_build_tools)
   } else {
     $include_build_tools_real = $include_build_tools
