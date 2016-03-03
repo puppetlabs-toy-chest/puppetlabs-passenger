@@ -1,1 +1,1 @@
-LoadModule passenger_module <%= @mod_passenger_location %>
+LoadModule passenger_module <%= scope.lookupvar('passenger::mod_passenger_location') %>

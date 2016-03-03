@@ -72,7 +72,7 @@ describe 'passenger' do
         }
       end
 
-      it should_not { contain_class('passenger::compile') }
+      it { should_not contain_class('passenger::compile')}
     end
 
     describe 'with include_build_tools' do
